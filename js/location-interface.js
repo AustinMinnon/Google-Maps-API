@@ -1,48 +1,56 @@
-// var geolocationSuccess = require('./../js/location.js').geolocationSuccess;
-// var geolocationError = require('./../js/location.js').geolocationError;
 $(document).ready(function() {
   google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addListener(map, 'click', function(event) {
+  placeMarker(event.latLng);
   $('#locateUser').click(locateUser);
 
 });
+});
+function placeMarker(location) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+  });
+  var infowindow = new google.maps.InfoWindow({
+    content: 'Latitude: ' + location.lat() +
+    '<br>Longitude: ' + location.lng()
+  });
+  infowindow.open(map,marker);
+}
 
 function initialize() {
+  var myCenter=new google.maps.LatLng(55.7500,37.6167);
   var mapProp = {
-    center:new google.maps.LatLng(51.508742,-0.120850),
-    zoom:5,
+    center:myCenter,
+    zoom:15,
     mapTypeId:google.maps.MapTypeId.ROADMAP
   };
+
   var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+  var marker=new google.maps.Marker({
+  position:myCenter,
+  optimized:false,
+  icon:'./../js/sham.gif',
+  // animation:google.maps.Animation.BOUNCE,
+  });
+  marker.setMap(map);
 }
 
 function locateUser() {
-  // If the browser supports the Geolocation API
   if (navigator.geolocation){
     var positionOptions = {
       enableHighAccuracy: true,
       timeout: 10 * 1000 // 10 seconds
     };
-    navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
+    navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError);
   }
   else {
     alert("Your browser doesn't support the Geolocation API");
   }
 }
 
-
-
-// this is the success callback from telling the navigator (your browser) to get the current user's position
-// we do this on line 13 above. We pass in a function to call on success, a function to call on error, and some options to tell the geolocation api how we want it to run.
-// on successfully locating the user, geolocationSuccess() gets called automatically, and it is passed the user's position as an argument.
-// on error, geolocationError is called.
-
-
 function geolocationSuccess(position) {
-  // here we take the `position` object returned by the geolocation api
-  // and turn it into google maps LatLng object by calling the google.maps.LatLng constructor function
-  // it 2 arguments: one for latitude, one for longitude.
-  // You could refactor this section to pass google maps your own coordinates rather than using geolocation for the user's current location.
-  // But you must use coordinates to use this method.
   var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
   var myOptions = {
@@ -50,10 +58,8 @@ function geolocationSuccess(position) {
     center : userLatLng,
     mapTypeId : google.maps.MapTypeId.ROADMAP
   };
-  // Draw the map - you have to use 'getElementById' here.
   var mapObject = new google.maps.Map(document.getElementById("googleMap"), myOptions);
-  // Place the marker
-  new google.maps.Marker({
+    new google.maps.Marker({
     map: mapObject,
     position: userLatLng
   });
