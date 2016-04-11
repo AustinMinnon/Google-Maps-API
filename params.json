@@ -1,0 +1,6 @@
+{
+  "name": "Google Maps API",
+  "tagline": "Add markers to a location",
+  "body": "# _Google Maps API_\r\n\r\n#### _Add markers to Google Map API_\r\n\r\n#### By _**Austin Minnon & Chris Houghton**_\r\n\r\n## Description\r\n\r\n_Input a username, and see all public repositories listed._\r\n\r\n## Setup/Installation Requirements\r\n\r\n* _Clone this repository._\r\n* _Run the following commands in terminal:_\r\n  * _npm install_\r\n  * _bower install_\r\n  * _gulp_\r\n\r\n## Bugs\r\n No known bugs.\r\n\r\n## Technologies Used\r\n\r\n_Javascript, jQuery, Node, Bower, Gulp, SASS, Bootstrap_\r\n\r\n##GitHub Pages\r\nhttp://austinminnon.github.io/Google-Maps-API\r\n\r\n\r\n### License\r\n\r\n_MIT license_\r\n\r\nCopyright (c) 2016 _**Austin Minnon & Chris Houghton**_\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
